@@ -15,7 +15,7 @@ namespace IntelligentScissors
         List<Point> curPath;
         List<Point> Path;
 
-        bool clicking;
+        bool clicking,d_clicked=false;
         Graphics g;
         Point curPOS;
         Point prePos;
@@ -26,7 +26,7 @@ namespace IntelligentScissors
         {
             InitializeComponent();
            // g = pictureBox1.CreateGraphics();
-            pen = new Pen(Color.Blue, 2);
+            pen = new Pen(Color.Blue, 1);
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
@@ -69,7 +69,7 @@ namespace IntelligentScissors
             textBox1.Text = e.X.ToString();
             textBox2.Text = e.Y.ToString();
 
-            if (ImageMatrix != null && Anchors.Count > 0)
+            if (ImageMatrix != null && Anchors.Count > 0&&!d_clicked)
             {
                 curPOS.X = e.X;
                 curPOS.Y = e.Y;
@@ -77,7 +77,7 @@ namespace IntelligentScissors
                 double distance = GraphOperation.GetDistance(curPOS.X, curPOS.Y, prePos.X, prePos.Y);
 
 
-                if (curPOS != prePos  && clicking)
+                if (curPOS != prePos   && distance >2)
                 {
                     
                     int src = GraphOperation.node_num(Anchors[Anchors.Count - 1].X, Anchors[Anchors.Count - 1].Y,
@@ -89,8 +89,9 @@ namespace IntelligentScissors
 
                    
 
-                    if (Path.Count > 5 && clicking)
+                    if (curPath != null && curPath.Count>1)
                     {
+                        Console.WriteLine("Refresh");
                         pictureBox1.Refresh();
                     }
 
@@ -101,7 +102,7 @@ namespace IntelligentScissors
       
         private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
         {
-
+            d_clicked = false;
             if (e.Button == MouseButtons.Left)
             {    
                 if(pictureBox1.Image != null)
@@ -109,15 +110,28 @@ namespace IntelligentScissors
                     
                     int x = e.Location.X;
                     int y = e.Location.Y;
+                    
+                    //prePos = new Point(e.X, e.Y);
                     Point p = new Point(x, y);
                     int width = ImageOperations.GetWidth(ImageMatrix);
                     int node = GraphOperation.node_num(x, y, width);
-                    
-                    Shortest_path_op.Dijkstra(node, GraphOperation.graph);
-                    
-                    Anchors.Add(p);
-                    Path.AddRange(curPath);
-                    pictureBox1.Refresh();
+                    if (Anchors.Count>0)
+                    {
+                        if(p != Anchors[Anchors.Count-1])
+                        {
+                            Shortest_path_op.Dijkstra(node, GraphOperation.graph);
+                            Anchors.Add(p);
+                            Path.AddRange(curPath);
+                            pictureBox1.Refresh();
+                        }
+                    }
+                    else
+                    {
+                        Shortest_path_op.Dijkstra(node, GraphOperation.graph);
+                        Anchors.Add(p);
+                        pictureBox1.Refresh();
+                    }
+                
                 }
             }
         }
@@ -135,12 +149,16 @@ namespace IntelligentScissors
                     e.Graphics.FillEllipse(redBrush, Anchors[i].X, Anchors[i].Y, widt, height);
                 }
                 
+                if(Path.Count>3&&Path != null)
+                {
+                    e.Graphics.DrawCurve(pen, Path.ToArray());
+                }
 
-                if (Path.Count > 5 && Path != null)
+                if (curPath.Count > 1 && curPath != null)
                 {
                     //g = pictureBox1.CreateGraphics();
 
-                    e.Graphics.DrawCurve(pen, Path.ToArray());
+                    e.Graphics.DrawCurve(pen, curPath.ToArray());
                 }
                
             }
@@ -150,7 +168,6 @@ namespace IntelligentScissors
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
             clicking = true;
-            curPOS = new Point(e.X, e.Y);
             prePos = new Point(e.X, e.Y);
         }
 
@@ -161,6 +178,33 @@ namespace IntelligentScissors
 
         private void label8_Click(object sender, EventArgs e)
         {
+        }
+
+        private void pictureBox1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            d_clicked = true;
+            if(pictureBox1.Image != null && Anchors.Count>1)
+            {
+                if(Anchors[Anchors.Count-1] != Anchors[0])
+                {
+                    int fpoint = GraphOperation.node_num(Anchors[0].X, Anchors[0].Y,
+                                                      ImageOperations.GetWidth(ImageMatrix));
+                    int src = GraphOperation.node_num(Anchors[Anchors.Count - 1].X, Anchors[Anchors.Count - 1].Y, ImageOperations.GetWidth(ImageMatrix));
+
+                    curPath = Shortest_path_op.Backtracking(Shortest_path_op.pre, fpoint, src, ImageOperations.GetWidth(ImageMatrix));
+                    Anchors[Anchors.Count - 1] = Anchors[0];
+                    pictureBox1.Refresh();
+                    Anchors.Clear();
+                    if (curPath != null && curPath.Count > 1)
+                    {
+                        Console.WriteLine("Refresh");
+                        //Path.AddRange(curPath);
+                      
+
+                    }
+
+                }
+            }
         }
     }
 }
