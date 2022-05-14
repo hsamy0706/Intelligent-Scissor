@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using System.IO;
+using System.Diagnostics;
+
+
 namespace IntelligentScissors
 {
     class PriorityQueue
@@ -101,14 +105,15 @@ namespace IntelligentScissors
         }
     }
 
- class Shortest_path_op
- {
-        static int[] pre;
+    class Shortest_path_op
+    {
+        public static int[] pre;
+        static Stopwatch stopwatch;
+
         public static void Dijkstra(int src, Dictionary<int, List<KeyValuePair<int, double>>> graph)
         {
-            Console.WriteLine("innnnnnnnnnnnnnnnnnnnn");
             int n = graph.Count;
-            double [] dist= new double[graph.Count];
+            double[] dist = new double[graph.Count];
             pre = new int[graph.Count];
             bool[] visited = new bool[graph.Count];
             PriorityQueue nextTovisit = new PriorityQueue();
@@ -121,7 +126,7 @@ namespace IntelligentScissors
             pre[src] = src;
             nextTovisit.Enqueue(new KeyValuePair<int, double>(src, 0));
 
-            while(!nextTovisit.IsEmpty())
+            while (!nextTovisit.IsEmpty())
             {
                 int u = nextTovisit.Dequeue().Key;
                 if (visited[u])
@@ -132,7 +137,7 @@ namespace IntelligentScissors
                     int v = child.Key;
                     double c = child.Value;
 
-                    if(dist[u]+c < dist[v])
+                    if (dist[u] + c < dist[v])
                     {
                         dist[v] = dist[u] + c;
                         pre[v] = u;
@@ -144,9 +149,9 @@ namespace IntelligentScissors
             }
 
         }
+
         public static void createPath(int[] parent, int fpoint, int src, List<Point> pointPath, int width)
         {
-
             if (parent[fpoint] == src)
                 return;
 
@@ -154,9 +159,7 @@ namespace IntelligentScissors
 
             var point = GraphOperation.get_XY_ofNode(fpoint, width);
             pointPath.Add(new Point((int)point.X, (int)point.Y));
-
         }
-
 
         public static List<Point> Backtracking(int[] parent, int fpoint, int src, int width)
         {
@@ -166,5 +169,7 @@ namespace IntelligentScissors
 
             return xy_Path;
         }
+
+        
     }
 }
