@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Diagnostics;
+using System.Threading;
 namespace IntelligentScissors
 {
     class GraphOperation
     {
         public static double inf = 1e+16;
         public static Dictionary<int, List<KeyValuePair<int, double>>> graph;
+       static Stopwatch stopwatch;
         public static int node_num(int x,int y,int width)
         {
             return x + (y * width);
@@ -22,6 +25,8 @@ namespace IntelligentScissors
         }
         public static void graph_construction(RGBPixel[,] ImageMatrix)
         {
+            stopwatch = new Stopwatch();
+            stopwatch.Start();
             int height = ImageOperations.GetHeight(ImageMatrix);
             int width = ImageOperations.GetWidth(ImageMatrix);
 
@@ -102,6 +107,7 @@ namespace IntelligentScissors
                                 graph[r_node].Add(edge);
                             }
                         }
+
                     }
                     ////////////////////////////////////////////////////////////////// 
                   
@@ -177,36 +183,41 @@ namespace IntelligentScissors
                 }
             }
 
-            
+            stopwatch.Stop();
+            Console.WriteLine("Elapsed Time is {0} s", stopwatch.ElapsedMilliseconds / 1000.0);
         }
         public static void print_graph(string filePath)
         {
             string[] s = filePath.Split('.');
             string path = s[0] + ".txt";
-           
-            try
+            if (!File.Exists(path))
             {
-                StreamWriter sw = new StreamWriter(path);
-             
-                sw.WriteLine("the constructed graph \n");
-            
-                for (int i=0;i< graph.Count();i++)
+                try
                 {
-                    sw.WriteLine("The index node "+i);
-                 
-                    sw.WriteLine("Edges \n");
-                    foreach(var item in graph[i])
-                    {
-                        sw.WriteLine("edge from   "+ i+ "  To   "+ item.Key+ "  with wieght  "+ (item.Value));
+                    StreamWriter sw = new StreamWriter(path);
 
-                        
+                    sw.WriteLine("Constructed Graph: (Format: node_index|edges:(from, to, weight)(from, to, weight)...)");
+
+                    for (int i = 0; i < graph.Count(); i++)
+                    {
+                        sw.Write(i + "|edges");
+
+                        //sw.WriteLine("Edges \n");
+                        foreach (var item in graph[i])
+                        {
+                            sw.Write("(" + i + "," + item.Key + "," + (item.Value) + ")");
+
+                        }
+
+                        sw.Write("\n");
                     }
-                    sw.WriteLine("\n");
+                    sw.Write("Elapsed Time is {0} s", stopwatch.ElapsedMilliseconds / 1000.0);
+                    sw.Close();
                 }
-                sw.Close();
-            }catch(Exception e)
-            {
-                Console.WriteLine(e.Message);
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
             }
         }
     }
