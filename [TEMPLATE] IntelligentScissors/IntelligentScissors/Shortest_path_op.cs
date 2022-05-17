@@ -150,6 +150,48 @@ namespace IntelligentScissors
             }
 
         }
+        public static void dijkstra(int src, int dest,Dictionary<int, List<KeyValuePair<int, double>>> graph)
+        {
+            int n = graph.Count;
+            const double oo = 10000000000000000000;
+            double[] dist = new double[graph.Count];
+            pre = new int[graph.Count];
+            bool[] visited = new bool[graph.Count];
+            PriorityQueue nextTovisit = new PriorityQueue();
+            for (int i = 0; i < n; i++)
+            {
+                dist[i] = oo;
+                pre[i] = -1;
+            }
+            dist[src] = 0;
+            pre[src] = src;
+            nextTovisit.Enqueue(new KeyValuePair<int, double>(src, 0));
+
+            while (!nextTovisit.IsEmpty())
+            {
+                int u = nextTovisit.Dequeue().Key;
+                if (visited[u])
+                    continue;
+                visited[u] = true;
+                if (u == dest)
+                    break;
+                foreach (var child in graph[u])
+                {
+                    int v = child.Key;
+                    double c = child.Value;
+
+                    if (dist[u] + c < dist[v])
+                    {
+                        dist[v] = dist[u] + c;
+                        pre[v] = u;
+                        nextTovisit.Enqueue(new KeyValuePair<int, double>(v, dist[v]));
+                    }
+
+                }
+
+            }
+
+        }
 
         public static void createPath(int[] parent, int fpoint, int src, List<Point> pointPath, int width)
         {

@@ -115,11 +115,13 @@ namespace IntelligentScissors
                     Point p = new Point(x, y);
                     int width = ImageOperations.GetWidth(ImageMatrix);
                     int node = GraphOperation.node_num(x, y, width);
+                    
                     if (Anchors.Count>0)
                     {
                         if(p != Anchors[Anchors.Count-1])
                         {
-                            Shortest_path_op.Dijkstra(node, GraphOperation.graph);
+                            int dest = GraphOperation.node_num(Anchors[0].X, Anchors[0].Y, width);
+                            Shortest_path_op.dijkstra(node,dest, GraphOperation.graph);
                             Anchors.Add(p);
                             Path.AddRange(curPath);
                             pictureBox1.Refresh();
@@ -189,6 +191,7 @@ namespace IntelligentScissors
 
                     curPath = Shortest_path_op.Backtracking(Shortest_path_op.pre, fpoint, src, ImageOperations.GetWidth(ImageMatrix));
                     Anchors[Anchors.Count - 1] = Anchors[0];
+                    Path.AddRange(curPath);
                     pictureBox1.Refresh();
                     Anchors.Clear();
                   
