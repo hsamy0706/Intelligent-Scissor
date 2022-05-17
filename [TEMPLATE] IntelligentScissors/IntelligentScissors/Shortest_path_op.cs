@@ -113,13 +113,14 @@ namespace IntelligentScissors
         public static void Dijkstra(int src, Dictionary<int, List<KeyValuePair<int, double>>> graph)
         {
             int n = graph.Count;
+            const double oo = 10000000000000000000;
             double[] dist = new double[graph.Count];
             pre = new int[graph.Count];
             bool[] visited = new bool[graph.Count];
             PriorityQueue nextTovisit = new PriorityQueue();
             for (int i = 0; i < n; i++)
             {
-                dist[i] = GraphOperation.inf;
+                dist[i] = oo;
                 pre[i] = -1;
             }
             dist[src] = 0;
@@ -152,7 +153,7 @@ namespace IntelligentScissors
 
         public static void createPath(int[] parent, int fpoint, int src, List<Point> pointPath, int width)
         {
-            if (parent[fpoint] == src)
+            if (parent[fpoint] == -1 || parent[fpoint] == src)
                 return;
 
             createPath(parent, parent[fpoint], src, pointPath, width);
