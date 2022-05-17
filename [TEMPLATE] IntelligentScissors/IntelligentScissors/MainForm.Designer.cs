@@ -48,6 +48,18 @@ namespace IntelligentScissors
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.lable16 = new System.Windows.Forms.Label();
+            this.X1 = new System.Windows.Forms.TextBox();
+            this.Y1 = new System.Windows.Forms.TextBox();
+            this.X2 = new System.Windows.Forms.TextBox();
+            this.Y2 = new System.Windows.Forms.TextBox();
+            this.Show_Path_btn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMaskSize)).BeginInit();
@@ -271,11 +283,132 @@ namespace IntelligentScissors
             this.label8.TabIndex = 20;
             this.label8.Text = "Y";
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
+            this.label9.Location = new System.Drawing.Point(919, 31);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(193, 19);
+            this.label9.TabIndex = 21;
+            this.label9.Text = "Path between 2 points";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.label10.Location = new System.Drawing.Point(898, 109);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(52, 14);
+            this.label10.TabIndex = 22;
+            this.label10.Text = "Point 1";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.label11.Location = new System.Drawing.Point(982, 109);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(15, 14);
+            this.label11.TabIndex = 23;
+            this.label11.Text = "X";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.label12.Location = new System.Drawing.Point(1063, 109);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(14, 14);
+            this.label12.TabIndex = 24;
+            this.label12.Text = "Y";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.label13.Location = new System.Drawing.Point(898, 153);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(52, 14);
+            this.label13.TabIndex = 25;
+            this.label13.Text = "Point 2";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.label14.Location = new System.Drawing.Point(982, 153);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(15, 14);
+            this.label14.TabIndex = 26;
+            this.label14.Text = "X";
+            // 
+            // lable16
+            // 
+            this.lable16.AutoSize = true;
+            this.lable16.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.lable16.Location = new System.Drawing.Point(1063, 153);
+            this.lable16.Name = "lable16";
+            this.lable16.Size = new System.Drawing.Size(14, 14);
+            this.lable16.TabIndex = 27;
+            this.lable16.Text = "Y";
+            // 
+            // X1
+            // 
+            this.X1.Location = new System.Drawing.Point(1006, 109);
+            this.X1.Name = "X1";
+            this.X1.Size = new System.Drawing.Size(22, 20);
+            this.X1.TabIndex = 28;
+            // 
+            // Y1
+            // 
+            this.Y1.Location = new System.Drawing.Point(1083, 109);
+            this.Y1.Name = "Y1";
+            this.Y1.Size = new System.Drawing.Size(29, 20);
+            this.Y1.TabIndex = 29;
+            // 
+            // X2
+            // 
+            this.X2.Location = new System.Drawing.Point(1003, 151);
+            this.X2.Name = "X2";
+            this.X2.Size = new System.Drawing.Size(25, 20);
+            this.X2.TabIndex = 30;
+            // 
+            // Y2
+            // 
+            this.Y2.Location = new System.Drawing.Point(1083, 151);
+            this.Y2.Name = "Y2";
+            this.Y2.Size = new System.Drawing.Size(29, 20);
+            this.Y2.TabIndex = 31;
+            // 
+            // Show_Path_btn
+            // 
+            this.Show_Path_btn.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
+            this.Show_Path_btn.Location = new System.Drawing.Point(965, 215);
+            this.Show_Path_btn.Name = "Show_Path_btn";
+            this.Show_Path_btn.Size = new System.Drawing.Size(138, 56);
+            this.Show_Path_btn.TabIndex = 32;
+            this.Show_Path_btn.Text = "Show Path";
+            this.Show_Path_btn.UseVisualStyleBackColor = true;
+            this.Show_Path_btn.Click += new System.EventHandler(this.Show_Path_btn_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(964, 541);
+            this.ClientSize = new System.Drawing.Size(1135, 497);
+            this.Controls.Add(this.Show_Path_btn);
+            this.Controls.Add(this.Y2);
+            this.Controls.Add(this.X2);
+            this.Controls.Add(this.Y1);
+            this.Controls.Add(this.X1);
+            this.Controls.Add(this.lable16);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.textBox2);
@@ -330,6 +463,18 @@ namespace IntelligentScissors
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label lable16;
+        private System.Windows.Forms.TextBox X1;
+        private System.Windows.Forms.TextBox Y1;
+        private System.Windows.Forms.TextBox X2;
+        private System.Windows.Forms.TextBox Y2;
+        private System.Windows.Forms.Button Show_Path_btn;
     }
 }
 

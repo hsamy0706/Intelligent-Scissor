@@ -21,6 +21,7 @@ namespace IntelligentScissors
         Point prePos;
         Pen pen;
 
+        string OpenedFilePath;
 
         public MainForm()
         {
@@ -35,7 +36,7 @@ namespace IntelligentScissors
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 //Open the browsed image and display it
-                string OpenedFilePath = openFileDialog1.FileName;
+                 OpenedFilePath = openFileDialog1.FileName;
                 ImageMatrix = ImageOperations.OpenImage(OpenedFilePath);
                 ImageOperations.DisplayImage(ImageMatrix, pictureBox1);
                 //Console.WriteLine(OpenedFilePath);
@@ -176,7 +177,26 @@ namespace IntelligentScissors
             clicking = false;
         }
 
-        
+        private void Show_Path_btn_Click(object sender, EventArgs e)
+        {
+            Point point1 = new Point();
+            Point point2 = new Point();
+
+            int width = ImageOperations.GetWidth(ImageMatrix);
+            int height = ImageOperations.GetHeight(ImageMatrix);
+
+            point1.X = int.Parse(X1.Text);
+            point1.Y = int.Parse(Y1.Text);
+            point2.X = int.Parse(X2.Text);
+            point2.Y = int.Parse(Y2.Text);
+
+            if (point1.X > width || point2.X > width)
+                if (point1.Y > height || point2.Y > height)
+                    return;
+
+            Shortest_path_op.printBacktraking(OpenedFilePath, width, point1, point2);
+
+        }
 
         private void pictureBox1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
@@ -200,5 +220,7 @@ namespace IntelligentScissors
                 }
             }
         }
+
+
     }
 }

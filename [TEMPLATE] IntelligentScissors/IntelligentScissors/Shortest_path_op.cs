@@ -213,6 +213,56 @@ namespace IntelligentScissors
             return xy_Path;
         }
 
-        
+        public static void printBacktraking(string filePath, int width, Point fromPoint, Point toPoint)
+        {
+
+            int fromPointXY = GraphOperation.node_num(fromPoint.X, fromPoint.Y, width);
+            int toPointXY = GraphOperation.node_num(toPoint.X, toPoint.Y, width);
+            stopwatch = new Stopwatch();
+            stopwatch.Start();
+            Dijkstra(fromPointXY, GraphOperation.graph);
+
+          
+            List<Point> backPath = new List<Point>();
+            backPath = Backtracking(pre, toPointXY, fromPointXY, width);
+
+
+            stopwatch.Stop();
+
+            string[] s = filePath.Split('.');
+            string path = s[0] + " path" + ".txt";
+
+            if (!File.Exists(path))
+            {
+                try
+                {
+                    StreamWriter sw = new StreamWriter(path);
+
+                    sw.WriteLine("The Shortest path from Node " + fromPointXY + " at ("
+                        + fromPoint.X + ", " + fromPoint.Y + ") to Node " + toPointXY + " at ("
+                        + toPoint.X + ", " + toPoint.Y + ")");
+
+                    sw.WriteLine("Format: (node_index, x, y)");
+
+                    foreach (var i in backPath)
+                    {
+                        sw.WriteLine(i + "," + i.X + "," + i.Y + ")");
+                    }
+
+                    Console.WriteLine("finish");
+                    sw.WriteLine("Path construction took: "+ stopwatch.ElapsedMilliseconds / 1000.0 + " seconds.");
+                   
+                   
+
+
+                    sw.Close();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
+        }
+
     }
 }
