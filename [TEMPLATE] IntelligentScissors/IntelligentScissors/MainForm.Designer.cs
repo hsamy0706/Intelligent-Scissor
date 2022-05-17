@@ -78,7 +78,6 @@ namespace IntelligentScissors
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox2.TabIndex = 1;
             this.pictureBox2.TabStop = false;
-            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
             // btnOpen
             // 
@@ -271,7 +270,6 @@ namespace IntelligentScissors
             this.label8.Size = new System.Drawing.Size(17, 16);
             this.label8.TabIndex = 20;
             this.label8.Text = "Y";
-            this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
             // MainForm
             // 

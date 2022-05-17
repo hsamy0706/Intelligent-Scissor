@@ -16,7 +16,7 @@ namespace IntelligentScissors
         List<Point> Path;
 
         bool clicking,d_clicked=false;
-        Graphics g;
+        //Graphics g;
         Point curPOS;
         Point prePos;
         Pen pen;
@@ -26,7 +26,7 @@ namespace IntelligentScissors
         {
             InitializeComponent();
            // g = pictureBox1.CreateGraphics();
-            pen = new Pen(Color.Blue, 1);
+            pen = new Pen(Color.Gold, 2);
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
@@ -156,8 +156,6 @@ namespace IntelligentScissors
 
                 if (curPath.Count > 1 && curPath != null)
                 {
-                    //g = pictureBox1.CreateGraphics();
-
                     e.Graphics.DrawCurve(pen, curPath.ToArray());
                 }
                
@@ -176,9 +174,7 @@ namespace IntelligentScissors
             clicking = false;
         }
 
-        private void label8_Click(object sender, EventArgs e)
-        {
-        }
+        
 
         private void pictureBox1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
@@ -195,13 +191,8 @@ namespace IntelligentScissors
                     Anchors[Anchors.Count - 1] = Anchors[0];
                     pictureBox1.Refresh();
                     Anchors.Clear();
-                    if (curPath != null && curPath.Count > 1)
-                    {
-                        Console.WriteLine("Refresh");
-                        //Path.AddRange(curPath);
-                      
-
-                    }
+                  
+                 
 
                 }
             }
