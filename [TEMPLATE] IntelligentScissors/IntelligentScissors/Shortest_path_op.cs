@@ -154,7 +154,15 @@ namespace IntelligentScissors
         public static void createPath(int[] parent, int fpoint, int src, List<Point> pointPath, int width)
         {
             if (parent[fpoint] == -1 || parent[fpoint] == src)
+            {
+                var Spoint = GraphOperation.get_XY_ofNode(src, width);
+                pointPath.Add(new Point((int)Spoint.X, (int)Spoint.Y));
+                var fpoin = GraphOperation.get_XY_ofNode(fpoint, width);
+                pointPath.Add(new Point((int)fpoin.X, (int)fpoin.Y));
+                
                 return;
+            }
+                
 
             createPath(parent, parent[fpoint], src, pointPath, width);
 
@@ -177,10 +185,10 @@ namespace IntelligentScissors
             int fromPointXY = GraphOperation.node_num(fromPoint.X, fromPoint.Y, width);
             int toPointXY = GraphOperation.node_num(toPoint.X, toPoint.Y, width);
             stopwatch = new Stopwatch();
-            stopwatch.Start();
+            
             Dijkstra(fromPointXY, GraphOperation.graph);
 
-          
+            stopwatch.Start();
             List<Point> backPath = new List<Point>();
             backPath = Backtracking(pre, toPointXY, fromPointXY, width);
 
