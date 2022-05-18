@@ -202,10 +202,11 @@ namespace IntelligentScissors
 
         private void pictureBox1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            d_clicked = true;
+            
             if(pictureBox1.Image != null && Anchors.Count>1)
             {
-                if(Anchors[Anchors.Count-1] != Anchors[0])
+                
+                if (Anchors[Anchors.Count-1] != Anchors[0])
                 {
                     int fpoint = GraphOperation.node_num(Anchors[0].X, Anchors[0].Y,
                                                       ImageOperations.GetWidth(ImageMatrix));
@@ -213,11 +214,18 @@ namespace IntelligentScissors
 
                     curPath = Shortest_path_op.Backtracking(Shortest_path_op.pre, fpoint, src, ImageOperations.GetWidth(ImageMatrix));
                     Anchors[Anchors.Count - 1] = Anchors[0];
-                    Path.AddRange(curPath);
-                    pictureBox1.Refresh();
-                    Anchors.Clear();
-                  
-                 
+                    if(curPath.Count>0)
+                    {
+                        d_clicked = true;
+                        Path.AddRange(curPath);
+                        Anchors.Add(e.Location);
+                        pictureBox1.Refresh();
+                        Anchors.Clear();
+                        Path.Clear();
+                    }
+
+
+
 
                 }
             }
