@@ -14,7 +14,7 @@ namespace IntelligentScissors
         static List<Point> Anchors;
         List<Point> curPath;
         List<Point> Path;
-
+        Point AnchorSize = new Point(6, 6);
         bool clicking,d_clicked=false;
         //Graphics g;
         Point curPOS;
@@ -122,7 +122,7 @@ namespace IntelligentScissors
                         if(p != Anchors[Anchors.Count-1])
                         {
                             int dest = GraphOperation.node_num(Anchors[0].X, Anchors[0].Y, width);
-                            Shortest_path_op.dijkstra(node,dest, GraphOperation.graph);
+                            Shortest_path_op.Dijkstra(node, GraphOperation.graph);
                             Anchors.Add(p);
                             Path.AddRange(curPath);
                             pictureBox1.Refresh();
@@ -142,14 +142,16 @@ namespace IntelligentScissors
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
             SolidBrush redBrush = new SolidBrush(Color.Red);
-            int widt = 4;
-            int height = 4;
+            int widt = 6;
+            int height = 6;
             
             if (ImageMatrix != null)
             {        
                 for(int i=0;i<Anchors.Count;i++)
-                {   
-                    e.Graphics.FillEllipse(redBrush, Anchors[i].X, Anchors[i].Y, widt, height);
+                {
+                    e.Graphics.FillEllipse(redBrush,Anchors[i].X - AnchorSize.X / 2, Anchors[i].Y - AnchorSize.Y / 2,
+                        widt, height);
+
                 }
                 
                 if(Path.Count>3&&Path != null)
